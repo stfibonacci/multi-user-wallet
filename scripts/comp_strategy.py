@@ -17,6 +17,9 @@ def add_strategy():
     wallet_exhange_rate = wallet.getExchangeRate()
     print(f"wallet exhange rate is {wallet_exhange_rate}")
 
+    wallet.addToWhitelist(alice, {"from": alice})
+    wallet.addToWhitelist(bob, {"from": alice})
+
     dai.approve(wallet, a_amount, {"from": alice})
     print("alice dai approved")
     dai.approve(wallet, b_amount, {"from": bob})
@@ -83,8 +86,8 @@ def add_strategy():
     comp_strategy_exhange_rate = comp_strategy.getExchangeRate()
     print(f"comp strategy exhange rate is {comp_strategy_exhange_rate/ decimal}")
 
-    wallet.unstakeTokens(bob_balance, {"from": bob})
-
+    bob_unstake_amount = wallet.balanceOf(bob)
+    wallet.unstakeTokens(bob_unstake_amount, {"from": bob})
     print(f"bob balance is {dai.balanceOf(bob)/ decimal}")
 
 

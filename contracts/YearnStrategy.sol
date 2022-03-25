@@ -25,11 +25,11 @@ contract YearnStrategy is ERC20 {
     }
 
     modifier onlyManager() {
-        require(manager == msg.sender, "Only Manager");
+        require(msg.sender == manager, "Only Manager");
         _;
     }
     modifier onlyWallet() {
-        require(wallet == msg.sender, "Only Manager");
+        require(msg.sender == wallet, "Only Manager");
         _;
     }
 
@@ -81,9 +81,11 @@ contract YearnStrategy is ERC20 {
     }
 
     function balanceYTokenInDai() public view returns (uint256) {
-        uint256 price = YVault(yDai).pricePerShare();
-        uint256 shares = IERC20(yDai).balanceOf(address(this));
-        return (shares * price) / (1e18);
+        uint256 b = YTokenBalance();
+        if (b > 0) {
+            b = (YTokenBalance() * YVault(yDai).pricePerShare()) / (1e18);
+        }
+        return b;
     }
 
     // total available dai balance in the strategy contract

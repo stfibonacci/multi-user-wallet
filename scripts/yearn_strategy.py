@@ -17,6 +17,9 @@ def add_strategy():
     wallet_exhange_rate = wallet.getExchangeRate()
     print(f"wallet exhange rate is {wallet_exhange_rate}")
 
+    wallet.addToWhitelist(alice, {"from": alice})
+    wallet.addToWhitelist(bob, {"from": alice})
+
     dai.approve(wallet, a_amount, {"from": alice})
     print("alice dai approved")
     dai.approve(wallet, b_amount, {"from": bob})

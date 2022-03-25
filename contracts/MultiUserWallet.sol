@@ -19,10 +19,16 @@ contract MultiUserWallet is Ownable, ERC20 {
         dai = _dai;
     }
 
-    function addToWhitelist() external onlyOwner {
-        require(!whitelistedAddresses[msg.sender], "user already whitelisted");
-        whitelistedAddresses[msg.sender] = true;
+    function addToWhitelist(address _address) external onlyOwner {
+        require(!whitelistedAddresses[_address], "user already whitelisted");
+        whitelistedAddresses[_address] = true;
         numOfWhitelistedAddress += 1;
+    }
+
+    function removeFromWhitelist(address _address) external onlyOwner {
+        require(whitelistedAddresses[_address], "user not whitelisted");
+        whitelistedAddresses[_address] = false;
+        numOfWhitelistedAddress -= 1;
     }
 
     function stakeTokens(uint256 _amount) external {

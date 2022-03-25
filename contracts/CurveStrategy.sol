@@ -31,11 +31,11 @@ contract CurveStrategy is ERC20 {
     }
 
     modifier onlyManager() {
-        require(manager == msg.sender, "Only Manager");
+        require(msg.sender == manager, "Only Manager");
         _;
     }
     modifier onlyWallet() {
-        require(wallet == msg.sender, "Only Manager");
+        require(msg.sender == wallet, "Only Manager");
         _;
     }
 
@@ -58,7 +58,6 @@ contract CurveStrategy is ERC20 {
             _withdrawSomeCurve3Pool(_amount - strategyBalance);
         }
 
-        // transfer dai tokens out of this contract to the msg.sender
         IERC20(dai).transfer(msg.sender, _amount);
     }
 

@@ -28,11 +28,11 @@ contract CompStrategy is ERC20 {
     }
 
     modifier onlyManager() {
-        require(manager == msg.sender, "Only Manager");
+        require(msg.sender == manager, "Only Manager");
         _;
     }
     modifier onlyWallet() {
-        require(wallet == msg.sender, "Only Manager");
+        require(msg.sender == wallet, "Only Manager");
         _;
     }
 
